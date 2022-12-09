@@ -1,0 +1,108 @@
+vtp domain dom
+vtp mode client
+
+vtp mode server
+
+
+
+
+interface range fa0/4 - 5 
+switchport mode access
+
+int range fa0/1-3
+switchport mode trunk
+
+
+channel-protocol lacp
+channel-group 1 mode active
+
+
+int port-channel 1
+switchport mode trunk
+
+
+
+channel-protocol lacp
+channel-group 1 mode passive
+
+int port-channel 1
+switchport mode trunk
+
+
+
+
+switch mode trunk
+switchport trunk allowed vlan 1-5
+switchport trunk native vlan 5
+exit
+
+
+
+int range fa0/2-3
+switch mode trunk
+switchport trunk allowed vlan 2-5
+switchport trunk native vlan 5
+exit
+
+
+
+
+int range fa0/2-4
+switchport mode access
+exit
+
+int fa0/2 
+switchport access vlan 3
+
+int fa0/3
+switchport access vlan 4
+
+int fa0/4
+switchport access vlan 2
+exit
+
+
+
+spanning-tree portfast
+spanning-tree bpduguard enable
+
+
+
+
+
+
+root:
+
+
+
+int vlan2
+ip address 103.105.96.1 255.255.224.0
+exit
+int vlan3 
+ip addr 133.138.10.1 255.255.255.128
+exit
+int vlan4
+ip addr 146.85.169.177 255.255.255.248
+exit
+int vlan5
+ip addr 99.146.203.129 255.255.255.192
+exit
+
+
+int fa0/0.2
+encapsulation dot1q 2 
+ip address 103.105.96.2 255.255.224.0
+int fa0/0.3
+encapsulation dot1q 3
+ip addr 133.138.10.2 255.255.255.128
+int fa0/0.4
+encapsulation dot1q 4
+ip addr 146.85.169.178 255.255.255.248
+int fa0/0.5
+encapsulation dot1q 5 native
+ip addr 99.146.203.130 255.255.255.192
+
+
+
+
+
